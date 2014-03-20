@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <fragment android:name="com.tickit.SplashActivity"
+          android:id="@+id/splashActivity"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent" />
+    <fragment android:name="com.facebook.widget.UserSettingsFragment"
+          android:id="@+id/userSettingsFragment"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent" />
+    <fragment android:name="com.tickit.SlidingMenuMenuFragment"
+          android:id="@+id/slidingmenumenuFragment"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent" />
+    
+    
+</LinearLayout>

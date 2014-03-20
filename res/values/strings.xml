@@ -4,5 +4,7 @@
     <string name="app_name">Tick It</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="app_id">297840523696639</string>
+    <string name="settings">Settings</string>
 
 </resources>
