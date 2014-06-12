@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+   <!--   <ScrollView 
+        xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:circular="http://schemas.android.com/apk/res/com.tickit"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+        android:clipToPadding="false"
+    android:id="@+id/homeroot"
+        android:orientation="vertical"
+        >
+        
+        
+    
+    <LinearLayout android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:orientation="vertical"
+	android:id="@+id/home_all_cont"
+	>
+	
+        
+
+        
+	<View 
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:id="@+id/imagehome"/>
+        
+	<RelativeLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="220dp"
+	    android:layout_marginLeft="6dp"
+		android:layout_marginRight="6dp"
+		android:layout_marginTop="4dp"
+		android:layout_marginBottom="4dp"
+		android:id="@+id/home_greeting_cont">
+	
+        <RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content" 
+		android:id="@+id/homerelative"
+
+		android:clickable="true"
+		
+		>
+
+	    
+		<TextView 
+		    android:id="@+id/smileytext"
+		    android:layout_width="110dp"
+		    android:layout_height="wrap_content"
+		       android:layout_marginTop="10dip"
+   			 android:layout_marginLeft="5dp"
+   			 android:layout_marginBottom="10dp"
+   			 android:gravity="center"
+   			 android:text=": ("
+   			 android:textColor="#FFFFFF"
+   			 android:textAlignment="gravity"
+   			 android:textSize="65dp"/>
+		
+		<TextView
+        android:id="@+id/greetingtext"
+        android:layout_width="match_parent"
+        android:layout_toRightOf="@+id/smileytext"
+        android:layout_height="wrap_content"
+        android:textAlignment="gravity"
+        android:gravity="center_horizontal"
+        android:textSize="25sp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:textColor="#FFFFFF"
+        android:layout_centerVertical="true"
+        />
+	</RelativeLayout>
+
+        
+	
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/homerelative"
+            android:layout_marginTop="5dp"
+            >
+            
+            <com.tickit.model.CircularProgressBar
+    android:id="@+id/circularprogressbar1"
+    style="@style/Widget.ProgressBar.Holo.CircularProgressBar"
+    android:layout_width="70dip"
+    android:layout_height="70dip"
+    android:layout_marginLeft="10dp"
+    android:layout_marginBottom="10dp"
+    circular:progressColor="#FFFFFF"
+    circular:titleColor="#FFFFFF"
+    circular:subtitleColor="#FFFFFF"
+    android:layout_alignParentLeft="true"
+    circular:strokeWidth="10"
+    circular:hasShadow="false"
+    />
+            
+            <View 
+                android:layout_toRightOf="@+id/circularprogressbar1"
+                android:layout_height="50dp"
+                android:layout_width="50dp"
+                android:background="#FFFFFF"
+                android:layout_marginLeft="5dp"
+                android:id="@+id/example1"
+                />
+            
+            <View 
+                android:layout_below="@+id/example1"
+                android:layout_toRightOf="@+id/circularprogressbar1"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_height="50dp"
+                android:layout_width="50dp"
+                android:background="#FFFFFF"
+                android:id="@+id/example2"
+                />
+            
+        </RelativeLayout>
+            
+        
+        </RelativeLayout>
+        
+	<RelativeLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content" 
+	            android:layout_marginLeft="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="20dp">
+	<TextView
+        android:id="@+id/hometodaytext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Today"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:textAlignment="gravity"
+        android:textSize="30sp"
+
+        />
+	
+	<TextView
+        android:id="@+id/hometodaycount"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textAlignment="gravity"
+        android:layout_toRightOf="@+id/hometodaytext"
+        android:layout_marginLeft="10dp"
+        android:textColor="#FFFFFF"
+        android:layout_centerVertical="true"
+        android:textSize="20sp"
+
+        />
+	</RelativeLayout>
+	 <LinearLayout
+        android:id="@+id/list_today_reminder"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_gravity="start"
+        android:orientation="vertical"
+        ></LinearLayout>
+	
+</LinearLayout>-->
+
+<ListView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/homeroot"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:divider="#00FFFFFF" /> 
+
+   
+
+
+    

@@ -1,0 +1,64 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/task_header"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        >
+        
+	     <View 
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:id="@+id/imagehome"/>
+	     
+	     <RelativeLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="220dp"
+	    android:layout_marginLeft="6dp"
+		android:layout_marginRight="6dp"
+		android:layout_marginTop="4dp"
+		android:layout_marginBottom="4dp"
+		android:id="@+id/task_greeting_cont">
+		
+        	<RelativeLayout 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+       	 <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/youhave"
+            android:text="You have"
+            android:textSize="25sp"
+            android:textColor="#FFFFFF"
+            android:layout_alignParentTop="true"
+            />
+        
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/youhave"
+            android:id="@+id/task_numTask"
+            android:textSize="70sp"
+            android:layout_marginTop="5dp"
+            android:textColor="#FFFFFF"
+            />
+        
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/intotal"
+            android:textSize="25sp"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/task_numTask"
+            android:text="tasks left."
+            android:textColor="#FFFFFF"
+            />
+        
+		</RelativeLayout>
+		</RelativeLayout>
+	     
+	 </LinearLayout>

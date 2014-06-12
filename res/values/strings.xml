@@ -1,10 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<string name="app_name">Tick It</string>
+<string name="action_settings">Settings</string>
+<string name="hello_world">Hello world!</string>
+<string name="app_id">297840523696639</string>
+<string name="settings">Settings</string>
+<string name="action_settings">Settings</string>
+<!-- Nav Drawer Menu Items -->
+<string-array name="nav_drawer_items">
+<item >Home</item>
+<item >Tasks</item>
+<item >Today</item>
+<item >Groups</item>
+<item >Folders</item>
+<item >Tags</item>
+<item >Priority</item>
+<item >Settings</item>
 
-    <string name="app_name">Tick It</string>
-    <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="app_id">297840523696639</string>
-    <string name="settings">Settings</string>
-
+</string-array>
+<!-- Nav Drawer List Item Icons -->
+    <!-- Keep them in order as the titles are in -->
+    <array name="nav_drawer_icons_pro">
+        <item>@drawable/ic_home_selector</item>
+        <item>@drawable/ic_tasks_selector</item>
+        <item>@drawable/ic_groups_selector</item>
+        <item>@drawable/ic_folders_selector</item>
+        <item>@drawable/ic_priority_selector</item>
+        <item>@drawable/ic_settings_selector</item>
+        
+    </array>
+    
+    <array name="nav_drawer_icons">
+        <item>@drawable/ic_home_selector</item>
+        <item>@drawable/ic_tasks_selector</item>
+        <item>@drawable/ic_groups_selector</item>
+        <item>@drawable/ic_settings_selector</item>
+        
+    </array>
+    
+    <array name="card_list_title">
+        <item>Maths Assignment</item>
+        <item>English Expository</item>
+        <item>Chinese 作文</item>
+        <item>Do Project</item>
+        
+    </array>
+    
+     <array name="card_list_description">
+        <item>This is too easy</item>
+        <item></item>
+        <item></item>
+        <item>Meet with Dr Richard later</item>
+        
+    </array>
+    
+     <array name="card_list_duedate">
+         <item>NOW</item>
+         <item>TMR</item>
+         <item>16/5</item>
+         <item>24/12</item>
+     </array>
+     
+     
+     
+     
+    
+    <!-- Content Description -->
+    <string name="desc_list_item_icon">Item Icon</string>
 </resources>

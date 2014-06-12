@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res/com.tickit">
+
+
+    
+<android.support.v4.view.ViewPager
+    android:id="@+id/pager"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="48dp">
+    </android.support.v4.view.ViewPager>
+<FrameLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/tabscont"
+    android:fitsSystemWindows="true"
+        android:clipToPadding="false"
+>
+<com.tickit.SlidingTabLayout
+          android:id="@+id/sliding_tabs"
+          android:layout_width="match_parent"
+          android:layout_height="48dp"
+          android:layout_gravity="center_horizontal" />
+
+</FrameLayout>
+</RelativeLayout>
+<!-- <android.support.v4.widget.DrawerLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <FrameLayout android:id="@+id/frame_container"
+                  android:layout_width="fill_parent"
+                  android:layout_height="fill_parent"/>
+
+    
+<ListView
+        android:id="@+id/list_slidermenu"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:choiceMode="singleChoice"
+        android:divider="@color/list_divider"
+        android:fitsSystemWindows="true"
+        android:clipToPadding="false"
+        android:dividerHeight="1dp"        
+        android:listSelector="@drawable/list_selector"
+        android:background="@color/list_background"/>
+
+<ListView android:id="@+id/add_reminder"
+              android:layout_width="300dp"
+              android:layout_height="match_parent"
+              android:layout_gravity="end"
+              android:choiceMode="singleChoice"
+        android:divider="@color/list_divider"
+        android:fitsSystemWindows="true"
+        android:clipToPadding="false"
+        android:dividerHeight="1dp"        
+        android:listSelector="@drawable/list_selector"
+        android:background="@color/list_background"/>
+</android.support.v4.widget.DrawerLayout>-->

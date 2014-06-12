@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/login_rootview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <RelativeLayout 
+        android:layout_width="200dp"
+        android:layout_height="290dp"
+        android:orientation="vertical" 
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        >
+<ImageView 
+        android:layout_width="200dp"
+      android:layout_height="160dp"
+      android:layout_centerInParent="true"
+      android:src="@drawable/email_icon"
+      android:gravity="bottom"
+      
+      
+        />
+</RelativeLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    >
+    
+    <TextView 
+        android:id="@+id/login_welcometext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Login"
+        android:layout_gravity="center_horizontal"
+        android:typeface="sans"
+      android:textStyle="bold"
+      android:textSize="30sp"/>
+
+    <EditText
+        android:id="@+id/login_email"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        android:layout_gravity="center_horizontal"
+        android:inputType="textEmailAddress"
+        android:layout_marginTop="20dp"
+        
+        />
+    
+    <EditText
+        android:id="@+id/login_password"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:layout_gravity="center_horizontal"
+        android:inputType="textPassword"
+        android:layout_marginTop="10dp"
+        
+        />
+    
+    <Button
+      android:id="@+id/login_submit"
+      android:layout_width="210dp"
+      android:layout_height="45dp"
+      android:text="Let's get started!"
+      android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40dp"
+      android:background="@drawable/rounded_button"
+      android:drawableLeft="@drawable/email_icon_small"
+      android:paddingLeft="10dp"
+      android:drawablePadding="5dp"
+      android:gravity="center_horizontal|center_vertical"
+      android:typeface="sans"
+      android:textStyle="bold"
+      android:textSize="16sp"
+      android:textColor="#FFFFFF"
+      />
+    
+</LinearLayout>
+
+</RelativeLayout>

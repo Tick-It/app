@@ -8,6 +8,10 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -24,27 +28,26 @@ import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphUser;
-import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 public class MainActivity extends FragmentActivity{
 	private static final int SPLASH = 0;
-	private static final int SLIDINGMENU = 1;
-	private static final int SETTINGS = 2;
-	private static final int FRAGMENT_COUNT = SETTINGS +1;
-	public static GraphUser user;
-	public static Fragment slidingmenumenu = new SlidingMenuMenuFragment();
+	private static final int EMAIL = 1;
+	private static final int EMAILREGISTER = 2;
+	private static final int FRAGMENT_COUNT = EMAILREGISTER +1;
 	
+	
+	EmailAccountHandler db;
+	private ProgressDialog pDialog;
+	EmailAccountHandler Mdb;
+	public static TickitUser user;
+	CreateSQLUser creation;
 	JSONParser jsonParser = new JSONParser();
 	private static String url_check_user = "http://tick-it.net23.net/view.php";
 	private static String url_create_user = "http://tick-it.net23.net/createuser.php";
 	private static final String TAG_SUCCESS = "success";
-	public static String id;
-	public static String first_name;
-	public static String last_name;
-	public static String username;
-	public static String email;
+	//public SlidingMenu menu;
 	public static String password = "password";
-	private MenuItem settings;
+	//private MenuItem settings;
 
 	private Fragment[] fragments = new Fragment[FRAGMENT_COUNT];
 	private UiLifecycleHelper uiHelper;
@@ -67,10 +70,17 @@ public class MainActivity extends FragmentActivity{
 	    uiHelper = new UiLifecycleHelper(this, callback);
 	    uiHelper.onCreate(savedInstanceState);
 
+	    //menu = new SlidingMenu(this);
+	    //menu.setMode(SlidingMenu.LEFT_RIGHT);
+		//menu.setBehindWidth(500);
+		//menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
+		//menu.setFadeDegree(0.15f);
+		//menu.setMenu(R.layout.menu_frame);
+		//menu.setSecondaryMenu(R.layout.menu_frame);
 	    FragmentManager fm = getSupportFragmentManager();
 	    fragments[SPLASH] = fm.findFragmentById(R.id.splashActivity);
-	    fragments[SLIDINGMENU] = fm.findFragmentById(R.id.slidingmenumenuFragment);
-	    fragments[SETTINGS] = fm.findFragmentById(R.id.userSettingsFragment);
+	    fragments[EMAIL] = fm.findFragmentById(R.id.emailLoginFragment);
+	    fragments[EMAILREGISTER] = fm.findFragmentById(R.id.emailRegisterFragment);
 
 	    FragmentTransaction transaction = fm.beginTransaction();
 	    for(int i = 0; i < fragments.length; i++) {
@@ -79,7 +89,7 @@ public class MainActivity extends FragmentActivity{
 	    transaction.commit();
 	}
 	
-	private void showFragment(int fragmentIndex, boolean addToBackStack) {
+	public void showFragment(int fragmentIndex, boolean addToBackStack/*, boolean slider*/) {
 	    FragmentManager fm = getSupportFragmentManager();
 	    FragmentTransaction transaction = fm.beginTransaction();
 	    for (int i = 0; i < fragments.length; i++) {
@@ -92,8 +102,20 @@ public class MainActivity extends FragmentActivity{
 	    if (addToBackStack) {
 	        transaction.addToBackStack(null);
 	    }
+	    
+	    //if (slider)
+	    //{
+	    //	menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
+	    //}
+	    //
+	    //else {
+	    //	menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
+	    //}
+	    
+	    transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
 	    transaction.commit();
 	}
+	
 	private void onSessionStateChange(Session session, SessionState state, Exception exception) {
 	    // Only make changes if the activity is visible
 	    if (isResumed) {
@@ -107,17 +129,26 @@ public class MainActivity extends FragmentActivity{
 	        if (state.isOpened()) {
 	            // If the session state is open:
 	            // Show the authenticated fragment
-	    	    if (session != null && session.isOpened()) {
+	    	   if (isEmailValidated(this.getApplicationContext()) == 2) {
+	        	Intent intent = new Intent(this, InterfaceActivity.class);
+	        	intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+	        	startActivity(intent);
+	        } else if (session != null && session.isOpened() && isEmailValidated(this.getApplicationContext()) == 1){
+		    	Intent intent = new Intent(this, InterfaceActivity.class);
+		    	intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+		    	startActivity(intent);
+		    } else if (session != null && session.isOpened() && isEmailValidated(this.getApplicationContext()) == 0) {
 	    	        // Get the user's data
 	    	        getInfo(session);
 	    	    }
-	            new CreateSQLUser().execute();
-	            showFragment(SLIDINGMENU, false);
-	            showUserInterface();
-	        } else if (state.isClosed()) {
-	            // If the session state is closed:
-	            // Show the login fragment
-	            showFragment(SPLASH, false);
+	            creation = new CreateSQLUser();
+	            creation.execute();
+	            //showFragment(SLIDINGMENU, false, true);
+	            
+	        }  
+	        
+	        else {
+	        	showFragment(SPLASH, false);
 	        }
 	    }
 	}
@@ -127,22 +158,35 @@ public class MainActivity extends FragmentActivity{
 	    super.onResumeFragments();
 	    Session session = Session.getActiveSession();
 
-	    if (session != null && session.isOpened()) {
-	        // if the session is already open,
-	        // try to show the selection fragment
-	    	if (session != null && session.isOpened()) {
+	    
+	    	if (isEmailValidated(this.getApplicationContext()) == 2){
+	        // 
+	    	Intent intent = new Intent(this, InterfaceActivity.class);
+	    	intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+	    	
+	    	startActivity(intent);
+	    } else if (session != null && session.isOpened() && isEmailValidated(this.getApplicationContext()) == 1){
+	    	Intent intent = new Intent(this, InterfaceActivity.class);
+	    	intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+	    	startActivity(intent);
+	    }
+	    	
+	    	else if (session != null && session.isOpened() && isEmailValidated(this.getApplicationContext()) == 0) {
     	        // Get the user's data
     	        getInfo(session);
-    	    }
-	    	showFragment(SLIDINGMENU, false);
-	    	showUserInterface();
+    	    
+    	        //Intent intent = new Intent(this, InterfaceActivity.class);
+    	        //intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+    	        //startActivity(intent);
 	        //new CreateSQLUser().execute();
-	    } else {
-	        // otherwise present the splash screen
-	        // and ask the person to login.
-	        showFragment(SPLASH, false);
+	    } 
+	    
+	    else {
+	    	showFragment(SPLASH, false);
 	    }
 	}
+	
+	
 	
 	@Override
 	public void onResume() {
@@ -177,29 +221,35 @@ public class MainActivity extends FragmentActivity{
 	    
 	}
 	
-	public void showUserInterface() {
-
-		/*getSupportFragmentManager()
-		.beginTransaction()
-		.replace(R.id.content_frame, slidingmenumenu)
-		.commit();*/
-
-		// configure the SlidingMenu
-		SlidingMenu menu = new SlidingMenu(this);
-		menu.setMode(SlidingMenu.LEFT_RIGHT);
-		menu.setBehindWidth(500);
-		menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
+	public int isEmailValidated (Context mContext){
 		
-		menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
-		menu.setFadeDegree(0.15f);
-		menu.setMenu(R.layout.menu_frame);
-		menu.setSecondaryMenu(R.layout.menu_frame);
-		/*The below code adds the menu
-		 * getSupportFragmentManager()
-		.beginTransaction()
-		.replace(R.id.menu_frame, new SlidingMenuMenuFragment())
-		.commit();*/
+		db = new EmailAccountHandler (mContext);
+		
+		if (db.getAccountCount() != 0){
+	
+			
+
+			
+			if(db.getFacebookCount()!=0)
+			{
+				Log.i("isEmailValidated","facebook");
+				return 1;
+			}
+			
+			else if (db.getEmailCount()!=0)
+			{
+				Log.i("isEmailValidated","email");
+				return 2;
+			}
+			
+		}
+		
+		Log.i("isEmailValidated","Not valid");
+		
+		return 0;
 	}
+	
+	
 		
 		
 	
@@ -207,30 +257,33 @@ public class MainActivity extends FragmentActivity{
 	class CreateSQLUser extends AsyncTask<String, String, String> {
 		 
 		public String id;
-		public String first_name;
-		public String last_name;
+		public String name;
 		public String username;
 		public String email;
 		public String password = "password";
        
-        /**
-         * Creating product
-         * */
+
+		@Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(MainActivity.this);
+            pDialog.setMessage("Getting things ready...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
+		
         protected String doInBackground(String... args) {
     	    
-    	       id = MainActivity.id;
-    	       first_name = MainActivity.first_name;
-    	       last_name = MainActivity.last_name;
-    	       username = MainActivity.username;
-    	       email = MainActivity.email;
-    	      
-    	    
-        	
+    	       id = TickitUser.getId();
+    	       name = TickitUser.getName();
+    	       username = TickitUser.getUsername();
+    	       email = TickitUser.getEmail();
+
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("id", id));
-            params.add(new BasicNameValuePair("first_name", first_name));
-            params.add(new BasicNameValuePair("last_name", last_name));
+            params.add(new BasicNameValuePair("name", name));
             params.add(new BasicNameValuePair("email", email));
             params.add(new BasicNameValuePair("username", username));
             params.add(new BasicNameValuePair("password", password));
@@ -248,11 +301,17 @@ public class MainActivity extends FragmentActivity{
                 int success = check.getInt(TAG_SUCCESS);
  
                 if (success != 1) {
+                	
+                	if (TickitUser.getLoginType() == "facebook"){
                     //no such user
                 	JSONObject create = jsonParser.makeHttpRequest(url_create_user,
                             "POST", params);
                 	Log.d("Creating new user", create.toString());
+                	}
                 	
+                	else {
+                		
+                	}
                 	
                 } else {
                     // failed to create product
@@ -262,6 +321,18 @@ public class MainActivity extends FragmentActivity{
             }
  
             return null;
+        }
+        
+protected void onPostExecute(String result) {
+        	
+	db = new EmailAccountHandler (MainActivity.this.getApplicationContext());
+	db.addAccount(email, password, "facebook");
+	Log.i("CreateSQLUser","adding to SQLite");
+	pDialog.dismiss();
+	Intent intent = new Intent(MainActivity.this, InterfaceActivity.class);
+	intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+    startActivity(intent);
+    
         }
         
        
@@ -278,11 +349,12 @@ public class MainActivity extends FragmentActivity{
 	            // If the response is successful
 	            if (session == Session.getActiveSession()) {
 	                if (user != null) {
-	                	id = (user.asMap().get("id").toString());
-	                	email = (user.asMap().get("email").toString());
-	                	first_name = (user.asMap().get("first_name").toString());
-	                	last_name = (user.asMap().get("last_name").toString());
-	                	username = (user.asMap().get("username").toString());
+	                	TickitUser.setId(user.asMap().get("id").toString());
+	                	TickitUser.setEmail(user.asMap().get("email").toString());
+	                	TickitUser.setName(user.asMap().get("name").toString());
+	                	TickitUser.setUsername(user.asMap().get("username").toString());
+	                	TickitUser.setPassword("password");
+	                	TickitUser.setLoginType("facebook");
 	                }
 	            }
 	            if (response.getError() != null) {

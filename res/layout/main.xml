@@ -8,14 +8,13 @@
           android:id="@+id/splashActivity"
           android:layout_width="match_parent"
           android:layout_height="match_parent" />
-    <fragment android:name="com.facebook.widget.UserSettingsFragment"
-          android:id="@+id/userSettingsFragment"
+    <fragment android:name="com.tickit.EmailLogin"
+          android:id="@+id/emailLoginFragment"
           android:layout_width="match_parent"
           android:layout_height="match_parent" />
-    <fragment android:name="com.tickit.SlidingMenuMenuFragment"
-          android:id="@+id/slidingmenumenuFragment"
+    <fragment android:name="com.tickit.EmailRegister"
+          android:id="@+id/emailRegisterFragment"
           android:layout_width="match_parent"
           android:layout_height="match_parent" />
-    
     
 </LinearLayout>
